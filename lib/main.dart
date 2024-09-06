@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(KalkulatorApp());
+void main() => runApp(CalculatorApp());
 
-class KalkulatorApp extends StatelessWidget {
+class CalculatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
