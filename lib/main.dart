@@ -8,7 +8,7 @@ class CalculatorApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(title: Text('Kalkulator')),
+        appBar: AppBar(title: Text('Calculator')),
         body: Kalkulator(),
       ),
     );
