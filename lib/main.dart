@@ -23,6 +23,7 @@ class Kalkulator extends StatefulWidget {
 class _KalkulatorState extends State<Kalkulator> {
   String output = "0";
   String _output = "0";
+  String inputHistory = "";
   double num1 = 0;
   double num2 = 0;
   String operand = "";
@@ -30,6 +31,7 @@ class _KalkulatorState extends State<Kalkulator> {
   buttonPressed(String buttonText) {
     if (buttonText == "CLEAR") {
       _output = "0";
+      inputHistory = "";
       num1 = 0;
       num2 = 0;
       operand = "";
@@ -39,6 +41,7 @@ class _KalkulatorState extends State<Kalkulator> {
         buttonText == "÷") {
       num1 = double.parse(output);
       operand = buttonText;
+      inputHistory += "$output $operand ";
       _output = "0";
     } else if (buttonText == ".") {
       if (_output.contains(".")) {
@@ -48,6 +51,7 @@ class _KalkulatorState extends State<Kalkulator> {
       }
     } else if (buttonText == "=") {
       num2 = double.parse(output);
+      inputHistory += "$output = ";
       if (operand == "+") {
         _output = (num1 + num2).toString();
       } else if (operand == "-") {
@@ -57,6 +61,8 @@ class _KalkulatorState extends State<Kalkulator> {
       } else if (operand == "÷") {
         _output = (num1 / num2).toString();
       }
+
+      inputHistory += _output;
       num1 = 0;
       num2 = 0;
       operand = "";
@@ -65,7 +71,12 @@ class _KalkulatorState extends State<Kalkulator> {
     }
 
     setState(() {
-      output = double.parse(_output).toStringAsFixed(2);
+      // Cek apakah hasilnya bilangan bulat atau desimal
+      if (_output.contains(".") && double.parse(_output) % 1 != 0) {
+        output = double.parse(_output).toStringAsFixed(2);
+      } else {
+        output = double.parse(_output).toStringAsFixed(0);
+      }
     });
   }
 
@@ -85,6 +96,14 @@ class _KalkulatorState extends State<Kalkulator> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+          child: Text(
+            inputHistory,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
         Container(
           alignment: Alignment.centerRight,
           padding: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
