@@ -1,0 +1,3 @@
+# Ignore Android and iOS code from language statistics
+android/* linguist-vendored
+ios/* linguist-vendored
